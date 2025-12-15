@@ -8,7 +8,7 @@ export const content: PortfolioData = {
     email: "dikshasharma@gmail.com",
     phone: "+91 91102 5610000",
     location: "Bangalore, India",
-    linkedin: "https://linkedin.com/in/diksha-sharma"
+    linkedin: "https://www.linkedin.com/in/diksha1709"
   },
   experience: [
     {
