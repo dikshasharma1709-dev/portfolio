@@ -6,17 +6,14 @@ import { SkillHexGrid } from './components/SkillHexGrid';
 import { Certifications } from './components/Certifications';
 import { ContactForm } from './components/ContactForm';
 import { GlobalBackground } from './components/GlobalBackground';
-import { ExecutiveProfile } from './components/ExecutiveProfile';
+import { ExecutiveProfile } from './components/ExecutiveProfile'; // Imported new component
 import { content } from './data';
 import { Menu, X, ChevronDown, Download, Loader2, Check } from 'lucide-react';
 
 export default function App() {
-  // 1. STATE DECLARATIONS (Only once!)
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [downloadStatus, setDownloadStatus] = useState<'idle' | 'loading' | 'success'>('idle');
 
-  // 2. EFFECTS
   useEffect(() => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 50);
@@ -24,31 +21,6 @@ export default function App() {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-
-  // 3. HANDLERS
-  const handleDownload = (e: React.MouseEvent) => {
-    e.preventDefault(); // Stop default link behavior
-    if (downloadStatus !== 'idle') return;
-
-    // Start Loading
-    setDownloadStatus('loading');
-
-    setTimeout(() => {
-      // Trigger Download
-      const link = document.createElement('a');
-      link.href = '/resume.pdf'; // Matches your public folder file
-      link.download = 'Diksha_Sharma_Resume.pdf'; // Forces this name
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
-      // Show Success
-      setDownloadStatus('success');
-
-      // Reset
-      setTimeout(() => setDownloadStatus('idle'), 3000);
-    }, 1500);
-  };
 
   const navLinks = [
     { name: 'About', href: '#about' },
@@ -58,10 +30,42 @@ export default function App() {
     { name: 'Contact', href: '#contact' },
   ];
 
+  // ... existing state ...
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  
+  // NEW: State for the download animation
+  const [downloadStatus, setDownloadStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+
+  const handleDownload = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (downloadStatus !== 'idle') return;
+
+    // 1. Start Loading Animation
+    setDownloadStatus('loading');
+
+    // 2. Simulate a brief "preparing" delay (1.5 seconds) for effect
+    setTimeout(() => {
+      // 3. Trigger the actual download programmatically
+      const link = document.createElement('a');
+      link.href = '/Diksha_Sharma_Resume.pdf'; // Make sure this matches your file name
+      link.download = 'Diksha_Sharma_Resume.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // 4. Show Success State
+      setDownloadStatus('success');
+
+      // 5. Reset to normal after 3 seconds
+      setTimeout(() => setDownloadStatus('idle'), 3000);
+    }, 1500);
+  };
+
   return (
     <div className="relative min-h-screen font-sans text-slate-200 selection:bg-primary selection:text-slate-900">
       
-      {/* Global Background */}
+      {/* 1. Global 3D Background Layer */}
       <GlobalBackground />
 
       {/* Navigation */}
@@ -83,38 +87,42 @@ export default function App() {
                 {link.name}
               </a>
             ))}
-            
-            {/* ANIMATED RESUME BUTTON */}
             <button 
-              onClick={handleDownload}
-              disabled={downloadStatus !== 'idle'}
-              className={`
-                relative flex items-center gap-2 px-5 py-2 rounded border text-sm font-semibold transition-all duration-300 overflow-hidden cursor-pointer
-                ${downloadStatus === 'idle' ? 'border-slate-600 text-white hover:bg-white hover:text-slate-900 hover:scale-105 active:scale-95' : ''}
-                ${downloadStatus === 'loading' ? 'border-sky-400 text-sky-400 cursor-wait bg-sky-400/10' : ''}
-                ${downloadStatus === 'success' ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400' : ''}
-              `}
-            >
-              <span className="relative z-10 flex items-center gap-2">
-                {downloadStatus === 'idle' && (
-                  <>
-                    <Download size={16} className="group-hover:animate-bounce" /> Resume
-                  </>
-                )}
+  onClick={handleDownload}
+  disabled={downloadStatus !== 'idle'}
+  className={`
+    relative flex items-center gap-2 px-5 py-2 rounded border text-sm font-semibold transition-all duration-300 overflow-hidden
+    ${downloadStatus === 'idle' ? 'border-slate-600 text-white hover:bg-white hover:text-slate-900 hover:scale-105 active:scale-95' : ''}
+    ${downloadStatus === 'loading' ? 'border-sky-400 text-sky-400 cursor-wait' : ''}
+    ${downloadStatus === 'success' ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400' : ''}
+  `}
+>
+  {/* Logic to swap icons based on status */}
+  <span className="relative z-10 flex items-center gap-2">
+    {downloadStatus === 'idle' && (
+      <>
+        <Download size={16} className="group-hover:animate-bounce" /> Resume
+      </>
+    )}
 
-                {downloadStatus === 'loading' && (
-                  <>
-                    <Loader2 size={16} className="animate-spin" /> Preparing...
-                  </>
-                )}
+    {downloadStatus === 'loading' && (
+      <>
+        <Loader2 size={16} className="animate-spin" /> Preparing...
+      </>
+    )}
 
-                {downloadStatus === 'success' && (
-                  <>
-                    <Check size={16} className="animate-in zoom-in duration-300" /> Saved!
-                  </>
-                )}
-              </span>
-            </button>
+    {downloadStatus === 'success' && (
+      <>
+        <Check size={16} className="animate-in zoom-in duration-300" /> Saved!
+      </>
+    )}
+  </span>
+
+  {/* Optional: Subtle background progress bar effect during loading */}
+  {downloadStatus === 'loading' && (
+    <span className="absolute inset-0 bg-sky-400/10 animate-pulse"></span>
+  )}
+</button>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -180,26 +188,33 @@ export default function App() {
 
       {/* Main Content */}
       <div className="relative z-20">
+        
+        {/* About Section - Redesigned with new Component */}
         <Section id="about" title="Executive Profile">
           <ExecutiveProfile />
         </Section>
 
+        {/* Experience Section */}
         <Section id="experience" title="Career Trajectory" className="bg-surface/30">
           <ExperienceTimeline />
         </Section>
 
+        {/* Skills Section */}
         <Section id="skills" title="Technical Capabilities">
           <SkillHexGrid />
         </Section>
 
+        {/* Certifications Section */}
         <Section id="certifications" title="Accreditations" className="bg-surface/30">
           <Certifications />
         </Section>
 
+        {/* Contact Section */}
         <Section id="contact" title="Connect">
           <ContactForm />
         </Section>
 
+        {/* Footer */}
         <footer className="py-8 border-t border-slate-800 text-center text-slate-500 text-sm bg-background">
           <p>© {new Date().getFullYear()} Diksha Sharma. All rights reserved.</p>
         </footer>
