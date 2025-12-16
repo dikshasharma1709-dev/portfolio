@@ -20,7 +20,7 @@ export const ContactForm: React.FC = () => {
     setLogs(prev => [...prev, `[${new Date().toLocaleTimeString('en-US', {hour12: false, fractionalSecondDigits: 2} as any)}] ${msg}`]);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => { // Added 'async'
     e.preventDefault();
     if (status !== 'idle') return;
 
@@ -29,28 +29,60 @@ export const ContactForm: React.FC = () => {
     addLog("INITIATING SECURE HANDSHAKE...");
     addLog("GENERATING RSA-4096 KEYS...");
 
+    // 1. Prepare the form data for FormSubmit
+    const formEndpoint = "https://formsubmit.co/ajax/dikshasharma1709@gmail.com"; // <--- CHANGE THIS EMAIL!
+
     setTimeout(() => {
       setStatus('transmitting');
       addLog("ENCRYPTION COMPLETE.");
       addLog("ESTABLISHING UPLINK...");
       
       let p = 0;
-      const interval = setInterval(() => {
+      const interval = setInterval(async () => { // Added 'async'
         p += Math.random() * 5;
         if (p > 100) {
           p = 100;
           clearInterval(interval);
+          
+          // 2. Animation is done, now actually send the email
           addLog("UPLINK ESTABLISHED.");
-          addLog("PAYLOAD DELIVERED.");
-          setTimeout(() => {
-            setStatus('success');
-            setFormData({ name: '', email: '', message: '' });
-            setTimeout(() => {
-               setStatus('idle');
-               setProgress(0);
-               setLogs([]);
-            }, 4000);
-          }, 800);
+          addLog("TRANSMITTING PAYLOAD...");
+
+          try {
+             const response = await fetch(formEndpoint, {
+                 method: "POST",
+                 headers: { 
+                     'Content-Type': 'application/json',
+                     'Accept': 'application/json'
+                 },
+                 body: JSON.stringify({
+                     name: formData.name,
+                     email: formData.email,
+                     message: formData.message,
+                     _subject: `New Mission Request from ${formData.name}` // Optional: Custom Subject
+                 })
+             });
+
+             if (!response.ok) throw new Error("Transmission Failed");
+
+             addLog("PAYLOAD DELIVERED.");
+             
+             setTimeout(() => {
+               setStatus('success');
+               setFormData({ name: '', email: '', message: '' });
+               setTimeout(() => {
+                   setStatus('idle');
+                   setProgress(0);
+                   setLogs([]);
+               }, 4000);
+             }, 800);
+
+          } catch (error) {
+              addLog("ERROR: CONNECTION REFUSED.");
+              addLog("RETRYING...");
+              setStatus('idle'); // Or handle error state
+          }
+
         } else {
            if (Math.random() > 0.7) addLog(`UPLOADING PACKET ${(Math.random() * 9999).toFixed(0)}...`);
            setProgress(p);
