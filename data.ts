@@ -5,8 +5,8 @@ export const content: PortfolioData = {
   title: "Presales Specialist | Cybersecurity",
   summary: "Driven and motivated sales professional with a strong background in persuasive demos and customer-facing technical consulting. Expert in bridging the gap between complex security technologies and business value.",
   contact: {
-    email: "dikshasharma@gmail.com",
-    phone: "+91 91102 5610000",
+    email: "dikshasharma1709@gmail.com",
+    phone: "+91 91102 56121",
     location: "Bangalore, India",
     linkedin: "https://www.linkedin.com/in/diksha1709"
   },
