@@ -55,9 +55,13 @@ export default function App() {
                 {link.name}
               </a>
             ))}
-            <button className="flex items-center gap-2 px-5 py-2 rounded border border-slate-600 text-white hover:bg-white hover:text-slate-900 transition-all text-sm font-semibold">
-              <Download size={16} /> Resume
-            </button>
+            <a 
+  href="/resume.pdf" 
+  download="Diksha_Sharma_Resume.pdf"
+  className="flex items-center gap-2 px-5 py-2 rounded border border-slate-600 text-white hover:bg-white hover:text-slate-900 transition-all text-sm font-semibold"
+>
+  <Download size={16} /> Resume
+</a>
           </div>
 
           {/* Mobile Menu Toggle */}
