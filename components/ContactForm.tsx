@@ -220,8 +220,8 @@ export const ContactForm: React.FC = () => {
 
            <form onSubmit={handleSubmit} className="space-y-8 relative z-10">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <InputGroup id="name" label="Identity" value={formData.name} onChange={(e: any) => setFormData({...formData, name: e.target.value})} placeholder="ENTER DESIGNATION" delay={0} />
-                <InputGroup id="email" label="Return Address" value={formData.email} onChange={(e: any) => setFormData({...formData, email: e.target.value})} placeholder="ENTER FREQUENCY" type="email" delay={100} />
+                <InputGroup id="name" label="Identity" value={formData.name} onChange={(e: any) => setFormData({...formData, name: e.target.value})} placeholder="ENTER NAME" delay={0} />
+                <InputGroup id="email" label="Return Address" value={formData.email} onChange={(e: any) => setFormData({...formData, email: e.target.value})} placeholder="ENTER EMAIL" type="email" delay={100} />
               </div>
               
               <div className="group relative animate-in fade-in slide-in-from-bottom-4 duration-700 delay-200 fill-mode-backwards">
