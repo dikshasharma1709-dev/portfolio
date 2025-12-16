@@ -30,7 +30,7 @@ export const ContactForm: React.FC = () => {
     addLog("GENERATING RSA-4096 KEYS...");
 
     // 1. Prepare the form data for FormSubmit
-    const formEndpoint = "https://formsubmit.co/ajax/dikshasharma1709@gmail.com"; // <--- CHANGE THIS EMAIL!
+    const formEndpoint = "https://formsubmit.co/ajax/aayansah17@gmail.com"; // <--- CHANGE THIS EMAIL!
 
     setTimeout(() => {
       setStatus('transmitting');
