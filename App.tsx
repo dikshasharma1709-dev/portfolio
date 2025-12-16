@@ -56,7 +56,7 @@ export default function App() {
               </a>
             ))}
             <a 
-  href="/resume.pdf" 
+  href="/Diksha_Sharma_Resume.pdf" 
   download="Diksha_Sharma_Resume.pdf"
   className="flex items-center gap-2 px-5 py-2 rounded border border-slate-600 text-white hover:bg-white hover:text-slate-900 transition-all text-sm font-semibold"
 >
