@@ -8,7 +8,7 @@ import { ContactForm } from './components/ContactForm';
 import { GlobalBackground } from './components/GlobalBackground';
 import { ExecutiveProfile } from './components/ExecutiveProfile'; // Imported new component
 import { content } from './data';
-import { Menu, X, ChevronDown, Download } from 'lucide-react';
+import { Menu, X, ChevronDown, Download, Loader2, Check } from 'lucide-react';
 
 export default function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -29,6 +29,38 @@ export default function App() {
     { name: 'Certifications', href: '#certifications' },
     { name: 'Contact', href: '#contact' },
   ];
+
+  // ... existing state ...
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  
+  // NEW: State for the download animation
+  const [downloadStatus, setDownloadStatus] = useState<'idle' | 'loading' | 'success'>('idle');
+
+  const handleDownload = (e: React.MouseEvent) => {
+    e.preventDefault();
+    if (downloadStatus !== 'idle') return;
+
+    // 1. Start Loading Animation
+    setDownloadStatus('loading');
+
+    // 2. Simulate a brief "preparing" delay (1.5 seconds) for effect
+    setTimeout(() => {
+      // 3. Trigger the actual download programmatically
+      const link = document.createElement('a');
+      link.href = '/Diksha_Sharma_Resume.pdf'; // Make sure this matches your file name
+      link.download = 'Diksha_Sharma_Resume.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // 4. Show Success State
+      setDownloadStatus('success');
+
+      // 5. Reset to normal after 3 seconds
+      setTimeout(() => setDownloadStatus('idle'), 3000);
+    }, 1500);
+  };
 
   return (
     <div className="relative min-h-screen font-sans text-slate-200 selection:bg-primary selection:text-slate-900">
@@ -55,13 +87,42 @@ export default function App() {
                 {link.name}
               </a>
             ))}
-            <a 
-  href="/Diksha_Sharma_Resume.pdf" 
-  download="Diksha_Sharma_Resume.pdf"
-  className="flex items-center gap-2 px-5 py-2 rounded border border-slate-600 text-white hover:bg-white hover:text-slate-900 transition-all text-sm font-semibold"
+            <button 
+  onClick={handleDownload}
+  disabled={downloadStatus !== 'idle'}
+  className={`
+    relative flex items-center gap-2 px-5 py-2 rounded border text-sm font-semibold transition-all duration-300 overflow-hidden
+    ${downloadStatus === 'idle' ? 'border-slate-600 text-white hover:bg-white hover:text-slate-900 hover:scale-105 active:scale-95' : ''}
+    ${downloadStatus === 'loading' ? 'border-sky-400 text-sky-400 cursor-wait' : ''}
+    ${downloadStatus === 'success' ? 'border-emerald-500 bg-emerald-500/10 text-emerald-400' : ''}
+  `}
 >
-  <Download size={16} /> Resume
-</a>
+  {/* Logic to swap icons based on status */}
+  <span className="relative z-10 flex items-center gap-2">
+    {downloadStatus === 'idle' && (
+      <>
+        <Download size={16} className="group-hover:animate-bounce" /> Resume
+      </>
+    )}
+
+    {downloadStatus === 'loading' && (
+      <>
+        <Loader2 size={16} className="animate-spin" /> Preparing...
+      </>
+    )}
+
+    {downloadStatus === 'success' && (
+      <>
+        <Check size={16} className="animate-in zoom-in duration-300" /> Saved!
+      </>
+    )}
+  </span>
+
+  {/* Optional: Subtle background progress bar effect during loading */}
+  {downloadStatus === 'loading' && (
+    <span className="absolute inset-0 bg-sky-400/10 animate-pulse"></span>
+  )}
+</button>
           </div>
 
           {/* Mobile Menu Toggle */}
