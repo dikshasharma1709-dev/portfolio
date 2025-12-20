@@ -10,9 +10,18 @@ export const content: PortfolioData = {
     location: "Bangalore, India",
     linkedin: "https://www.linkedin.com/in/diksha1709"
   },
-  experience: [
-    {
+  experience: {
       id: "exp1",
+      company: "Mitigata",
+      role: "Cyber Security Consultant",
+      period: "July 2025 – Present",
+      description: [
+        "Recommended and implemented tailored cybersecurity solutions.",
+        "Handled end-to-end procurement of security tools and services while maintaining OEM relationships."
+      ]
+    },
+    {
+      id: "exp2",
       company: "Ampcus Cyber India",
       role: "Presales Specialist",
       period: "Nov 2024 – Feb 2025",
@@ -22,9 +31,9 @@ export const content: PortfolioData = {
       ]
     },
     {
-      id: "exp2",
+      id: "exp3",
       company: "Infoavana",
-      role: "Presales Consultant",
+      role: "Presales Engineer",
       period: "Jan 2024 – Oct 2024",
       description: [
         "Managed proof-of-concept (POC) deployments for SIEM and endpoint security solutions.",
@@ -32,9 +41,9 @@ export const content: PortfolioData = {
       ]
     },
     {
-      id: "exp3",
+      id: "exp4",
       company: "Secureinteli",
-      role: "Cybersecurity Analyst",
+      role: "Presales Engineer",
       period: "Apr 2023 – Dec 2023",
       description: [
         "Analyzed threat landscapes and optimized security policies for clients.",
@@ -42,9 +51,9 @@ export const content: PortfolioData = {
       ]
     },
     {
-      id: "exp4",
+      id: "exp5",
       company: "CyberNX",
-      role: "Security Engineer",
+      role: "Presales Engineer",
       period: "Nov 2022 – Mar 2023",
       description: [
         "Implemented firewall rules and monitored security logs for anomalies.",
@@ -52,9 +61,9 @@ export const content: PortfolioData = {
       ]
     },
     {
-      id: "exp5",
+      id: "exp6",
       company: "Vinca CyberTech",
-      role: "Associate Engineer",
+      role: "Technical Engineer",
       period: "Nov 2020 – Oct 2022",
       description: [
         "Started career in cybersecurity operations.",
