@@ -1,6 +1,9 @@
-import { PortfolioData } from './types';
+// data.ts
+import { PortfolioData } from './types'; 
+// Make sure 'types.ts' is in the same folder. 
+// If it's in a different folder, adjust the path (e.g., '../types').
 
-export const content: PortfolioData = {
+export const portfolioData: PortfolioData = {
   name: "Diksha Sharma",
   title: "Presales Specialist | Cybersecurity",
   summary: "Driven and motivated sales professional with a strong background in persuasive demos and customer-facing technical consulting. Expert in bridging the gap between complex security technologies and business value.",
