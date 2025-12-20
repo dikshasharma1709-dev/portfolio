@@ -10,7 +10,8 @@ export const content: PortfolioData = {
     location: "Bangalore, India",
     linkedin: "https://www.linkedin.com/in/diksha1709"
   },
-  experience: {
+  experience: [
+    {
       id: "exp1",
       company: "Mitigata",
       role: "Cyber Security Consultant",
