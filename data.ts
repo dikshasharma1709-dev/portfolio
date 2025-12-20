@@ -80,7 +80,7 @@ export const content: PortfolioData = {
     { name: "CrowdStrike", category: "tech" },
     { name: "Netskope", category: "tech" },
     { name: "Elastic SIEM", category: "tool" },
-    { name: "Splunk by cisco", category: "tool" },
+    { name: "Splunk by Cisco", category: "tool" },
     { name: "Proofpoint", category: "tech" },
     { name: "Checkpoint", category: "tech" },
     { name: "Customer Success", category: "core" },
